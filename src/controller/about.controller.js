@@ -1,27 +1,25 @@
-
-
-const Banner = require('../app/model/banner');
+const About = require('../app/model/about');
 
 module.exports = {
-  get_banner: async (req, res) => {
+  get_about: async (req, res) => {
     try {
-      const banner = await Banner.collection.find().toArray();
+      const about = await About.collection.find().toArray();
       res.status(200).json({
-        banner: banner,
+        about: about,
       });
     } catch (error) {
       return res.json({ error: error });
     }
   },
   post_create: async (req, res) => {
-    const newBanner = new Banner({
+    const newAbout = new About({
       title: req.body.title,
       content: req.body.content,
     });
     try {
-      const saveBanner = await newBanner.save();
+      const saveAbout = await newAbout.save();
       res.status(201).json({
-        banner: saveBanner,
+        about: saveAbout,
       });
     } catch (error) {
       res.status(500).json({
@@ -29,16 +27,14 @@ module.exports = {
       });
     }
   },
-  update_banner: async (req, res) => {
+  update_about: async (req, res) => {
     try {
       const id = req.params.id;
-      const updateBanner = await Banner.findOneAndUpdate(
-        { _id: id },
-        req.body,
-        { new: true }
-      );
+      const updateAbout = await About.findOneAndUpdate({ _id: id }, req.body, {
+        new: true,
+      });
       res.status(200).json({
-        updateBanner,
+        updateAbout,
       });
     } catch (error) {
       return res.status(500).json({
@@ -46,14 +42,14 @@ module.exports = {
       });
     }
   },
-  delete_banner: async (req, res) => {
+  delete_about: async (req, res) => {
     try {
       const id = req.params.id;
-      const banner = await Banner.findOneAndDelete({ id }, { new: true });
-      if (banner.deletedCount === 0) {
+      const about = await About.findOneAndDelete({ id }, { new: true });
+      if (about.deletedCount === 0) {
         return res.status(404).json();
       } else {
-        return res.status(200).json(banner);
+        return res.status(200).json(about);
       }
     } catch (error) {
       return res.status(500).json({ error: error });
