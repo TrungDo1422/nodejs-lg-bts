@@ -1,0 +1,28 @@
+{
+  "name": "nodejs-lg-bts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --inspect ./src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TrungDo1422/nodejs-lg-bts.git"
+  },
+  "author": "trungdo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TrungDo1422/nodejs-lg-bts/issues"
+  },
+  "homepage": "https://github.com/TrungDo1422/nodejs-lg-bts#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongodb": "^4.8.1",
+    "mongoose": "^6.5.2",
+    "nodemon": "^2.0.19"
+  }
+}
