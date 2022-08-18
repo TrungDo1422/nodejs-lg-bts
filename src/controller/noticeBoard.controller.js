@@ -1,27 +1,25 @@
-
-
-const Banner = require('../app/model/banner');
+const Notice = require('../app/model/noticeBoard');
 
 module.exports = {
-  get_banner: async (req, res) => {
+  get_notice: async (req, res) => {
     try {
-      const banner = await Banner.collection.find().toArray();
+      const notice = await Notice.collection.find().toArray();
       res.status(200).json({
-        banner: banner,
+        notice: notice,
       });
     } catch (error) {
       return res.json({ error: error });
     }
   },
   post_create: async (req, res) => {
-    const newBanner = new Banner({
-      title: req.body.title,
-      content: req.body.content,
+    const newNotice = new Notice({
+      stt: req.body.stt,
+      description: req.body.description,
     });
     try {
-      const saveBanner = await newBanner.save();
+      const saveNotice = await newNotice.save();
       res.status(201).json({
-        banner: saveBanner,
+        notice: saveNotice,
       });
     } catch (error) {
       res.status(500).json({
@@ -29,16 +27,16 @@ module.exports = {
       });
     }
   },
-  update_banner: async (req, res) => {
+  update_notice: async (req, res) => {
     try {
       const id = req.params.id;
-      const updateBanner = await Banner.findOneAndUpdate(
+      const updateNotice = await Notice.findOneAndUpdate(
         { _id: id },
         req.body,
         { new: true }
       );
       res.status(200).json({
-        updateBanner,
+        updateNotice,
       });
     } catch (error) {
       return res.status(500).json({
@@ -46,14 +44,14 @@ module.exports = {
       });
     }
   },
-  delete_banner: async (req, res) => {
+  delete_notice: async (req, res) => {
     try {
       const id = req.params.id;
-      const banner = await Banner.findOneAndDelete({ id }, { new: true });
-      if (banner.deletedCount === 0) {
+      const notice = await Notice.findOneAndDelete({ id }, { new: true });
+      if (notice.deletedCount === 0) {
         return res.status(404).json();
       } else {
-        return res.status(200).json(banner);
+        return res.status(200).json(notice);
       }
     } catch (error) {
       return res.status(500).json({ error: error });
