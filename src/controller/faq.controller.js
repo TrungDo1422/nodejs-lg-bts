@@ -1,27 +1,28 @@
-const Notice = require('../app/model/noticeBoard');
+const Faq = require('../app/model/faq');
 
 module.exports = {
-  get_notice: async (req, res) => {
+  get_faq: async (req, res) => {
     try {
-      const notice = await Notice.collection.find().toArray();
+      const faq = await Faq.collection.find().toArray();
       res.status(200).json({
-        notice: notice,
+        faq: faq,
       });
     } catch (error) {
       return res.json({ error: error });
     }
   },
   post_create: async (req, res) => {
-    const newNotice = new Notice({
+    const newFaq = new Faq({
       title: req.body.title,
-      notice: req.body.notice,
-      stt: req.body.stt,
+      faq: req.body.faq,
+      content: req.body.content,
       description: req.body.description,
+      linkVideo: req.body.linkVideo,
     });
     try {
-      const saveNotice = await newNotice.save();
+      const saveFaq = await newFaq.save();
       res.status(201).json({
-        notice: saveNotice,
+        faq: saveFaq,
       });
     } catch (error) {
       res.status(500).json({
@@ -29,16 +30,14 @@ module.exports = {
       });
     }
   },
-  update_notice: async (req, res) => {
+  update_faq: async (req, res) => {
     try {
       const id = req.params.id;
-      const updateNotice = await Notice.findOneAndUpdate(
-        { _id: id },
-        req.body,
-        { new: true }
-      );
+      const updateFaq = await Faq.findOneAndUpdate({ _id: id }, req.body, {
+        new: true,
+      });
       res.status(200).json({
-        updateNotice,
+        updateFaq,
       });
     } catch (error) {
       return res.status(500).json({
@@ -46,14 +45,14 @@ module.exports = {
       });
     }
   },
-  delete_notice: async (req, res) => {
+  delete_faq: async (req, res) => {
     try {
       const id = req.params.id;
-      const notice = await Notice.findOneAndDelete({ id }, { new: true });
-      if (notice.deletedCount === 0) {
+      const faq = await Faq.findOneAndDelete({ id }, { new: true });
+      if (faq.deletedCount === 0) {
         return res.status(404).json();
       } else {
-        return res.status(200).json(notice);
+        return res.status(200).json(faq);
       }
     } catch (error) {
       return res.status(500).json({ error: error });
