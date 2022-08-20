@@ -1,19 +1,19 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const noticeSchema = new Schema(
+const popularSchema = new Schema(
   {
     title: {
       type: String,
       require: true,
     },
-    notice: [
+    popular: [
       {
-        stt: {
-          type: Number,
-          require: true,
+        imgUrl: {
+          type: String,
+          // require:true
         },
-        description: {
+        content: {
           type: String,
           require: true,
         },
@@ -23,4 +23,4 @@ const noticeSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model('notice', noticeSchema);
+module.exports = mongoose.model('popular', popularSchema);

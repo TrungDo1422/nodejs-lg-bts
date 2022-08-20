@@ -1,27 +1,27 @@
-const Notice = require('../app/model/noticeBoard');
+const Popular = require('../app/model/popular');
 
 module.exports = {
-  get_notice: async (req, res) => {
+  get_popular: async (req, res) => {
     try {
-      const notice = await Notice.collection.find().toArray();
+      const popular = await Popular.collection.find().toArray();
       res.status(200).json({
-        notice: notice,
+        popular: popular,
       });
     } catch (error) {
       return res.json({ error: error });
     }
   },
   post_create: async (req, res) => {
-    const newNotice = new Notice({
+    const newPopular = new Popular({
       title: req.body.title,
-      notice: req.body.notice,
-      stt: req.body.stt,
-      description: req.body.description,
+      popular: req.body.popular,
+      imgUrl: req.body.imgUrl,
+      content: req.body.content,
     });
     try {
-      const saveNotice = await newNotice.save();
+      const savePopular = await newPopular.save();
       res.status(201).json({
-        notice: saveNotice,
+        popular: savePopular,
       });
     } catch (error) {
       res.status(500).json({
@@ -29,16 +29,18 @@ module.exports = {
       });
     }
   },
-  update_notice: async (req, res) => {
+  update_popular: async (req, res) => {
     try {
       const id = req.params.id;
-      const updateNotice = await Notice.findOneAndUpdate(
+      const updatePopular = await Popular.findOneAndUpdate(
         { _id: id },
         req.body,
-        { new: true }
+        {
+          new: true,
+        }
       );
       res.status(200).json({
-        updateNotice,
+        updatePopular,
       });
     } catch (error) {
       return res.status(500).json({
@@ -46,14 +48,14 @@ module.exports = {
       });
     }
   },
-  delete_notice: async (req, res) => {
+  delete_popular: async (req, res) => {
     try {
       const id = req.params.id;
-      const notice = await Notice.findOneAndDelete({ id }, { new: true });
-      if (notice.deletedCount === 0) {
+      const popular = await Popular.findOneAndDelete({ id }, { new: true });
+      if (popular.deletedCount === 0) {
         return res.status(404).json();
       } else {
-        return res.status(200).json(notice);
+        return res.status(200).json(popular);
       }
     } catch (error) {
       return res.status(500).json({ error: error });

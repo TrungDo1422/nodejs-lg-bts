@@ -1,28 +1,29 @@
-const Categories = require('../app/model/categories');
+const Testimonial = require('../app/model/testimonial');
 
 module.exports = {
-  get_categories: async (req, res) => {
+  get_testimonial: async (req, res) => {
     try {
-      const categories = await Categories.collection.find().toArray();
+      const testimonial = await Testimonial.collection.find().toArray();
       res.status(200).json({
-        categories: categories,
+        testimonial: testimonial,
       });
     } catch (error) {
       return res.json({ error: error });
     }
   },
   post_create: async (req, res) => {
-    const newCategories = new Categories({
+    const newTestimonial = new Testimonial({
       title: req.body.title,
-      categories: req.body.categories,
-      iconUrl: req.body.iconUrl,
+      testimonial: req.body.testimonial,
       content: req.body.content,
-      course: req.body.course,
+      avataUrl: req.body.avataUrl,
+      name: req.body.name,
+      Plus: req.body.Plus,
     });
     try {
-      const saveCategories = await newCategories.save();
+      const saveTestimonial = await newTestimonial.save();
       res.status(201).json({
-        categories: saveCategories,
+        testimonial: saveTestimonial,
       });
     } catch (error) {
       res.status(500).json({
@@ -30,10 +31,10 @@ module.exports = {
       });
     }
   },
-  update_categories: async (req, res) => {
+  update_testimonial: async (req, res) => {
     try {
       const id = req.params.id;
-      const updateCategories = await Categories.findOneAndUpdate(
+      const updateTestimonial = await Testimonial.findOneAndUpdate(
         { _id: id },
         req.body,
         {
@@ -41,7 +42,7 @@ module.exports = {
         }
       );
       res.status(200).json({
-        updateCategories,
+        updateTestimonial,
       });
     } catch (error) {
       return res.status(500).json({
@@ -49,17 +50,17 @@ module.exports = {
       });
     }
   },
-  delete_categories: async (req, res) => {
+  delete_testimonial: async (req, res) => {
     try {
       const id = req.params.id;
-      const categories = await Categories.findOneAndDelete(
+      const testimonial = await Testimonial.findOneAndDelete(
         { id },
         { new: true }
       );
-      if (categories.deletedCount === 0) {
+      if (testimonial.deletedCount === 0) {
         return res.status(404).json();
       } else {
-        return res.status(200).json(categories);
+        return res.status(200).json(testimonial);
       }
     } catch (error) {
       return res.status(500).json({ error: error });
