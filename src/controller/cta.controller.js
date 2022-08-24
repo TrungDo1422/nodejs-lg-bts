@@ -15,6 +15,7 @@ module.exports = {
     const newCta = new Cta({
       imgUrl: req.body.imgUrl,
       title: req.body.title,
+      cta: req.body.cta,
       content: req.body.content,
     });
     try {
