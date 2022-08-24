@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const ctaSchema = new Schema(
   {
-    imgUrl:{
+    imgUrl: {
       type: String,
       // require: true,
     },
@@ -11,10 +11,14 @@ const ctaSchema = new Schema(
       type: String,
       require: true,
     },
-    content: {
-      type: String,
-      require: true,
-    },
+    cta: [
+      {
+        content: {
+          type: String,
+          require: true,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );

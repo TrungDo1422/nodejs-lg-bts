@@ -17,6 +17,7 @@ const faqSchema = new Schema({
         require: true,
       },
     },
+   
   ],
   linkVideo: {
     type: String,
