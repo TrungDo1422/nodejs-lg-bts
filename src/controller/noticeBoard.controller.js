@@ -13,8 +13,6 @@ module.exports = {
   },
   post_create: async (req, res) => {
     const newNotice = new Notice({
-      title: req.body.title,
-      notice: req.body.notice,
       stt: req.body.stt,
       description: req.body.description,
     });
@@ -32,7 +30,7 @@ module.exports = {
   update_notice: async (req, res) => {
     try {
       const id = req.params.id;
-      const updateNotice = await Notice.findOneAndUpdate(
+      const updateNotice = await Notice.findByIdAndUpdate(
         { _id: id },
         req.body,
         { new: true }
@@ -49,7 +47,7 @@ module.exports = {
   delete_notice: async (req, res) => {
     try {
       const id = req.params.id;
-      const notice = await Notice.findOneAndDelete({ id }, { new: true });
+      const notice = await Notice.findByIdAndDelete({ _id: id }, { new: true });
       if (notice.deletedCount === 0) {
         return res.status(404).json();
       } else {

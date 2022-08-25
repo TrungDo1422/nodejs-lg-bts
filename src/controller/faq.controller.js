@@ -13,11 +13,8 @@ module.exports = {
   },
   post_create: async (req, res) => {
     const newFaq = new Faq({
-      title: req.body.title,
-      faq: req.body.faq,
       content: req.body.content,
       description: req.body.description,
-      linkVideo: req.body.linkVideo,
     });
     try {
       const saveFaq = await newFaq.save();
@@ -33,7 +30,7 @@ module.exports = {
   update_faq: async (req, res) => {
     try {
       const id = req.params.id;
-      const updateFaq = await Faq.findOneAndUpdate({ _id: id }, req.body, {
+      const updateFaq = await Faq.findByIdAndUpdate({ _id: id }, req.body, {
         new: true,
       });
       res.status(200).json({
@@ -48,7 +45,7 @@ module.exports = {
   delete_faq: async (req, res) => {
     try {
       const id = req.params.id;
-      const faq = await Faq.findOneAndDelete({ id }, { new: true });
+      const faq = await Faq.findByIdAndDelete({ _id: id }, { new: true });
       if (faq.deletedCount === 0) {
         return res.status(404).json();
       } else {

@@ -15,7 +15,6 @@ module.exports = {
     const newCta = new Cta({
       imgUrl: req.body.imgUrl,
       title: req.body.title,
-      cta: req.body.cta,
       content: req.body.content,
     });
     try {
@@ -32,7 +31,7 @@ module.exports = {
   update_cta: async (req, res) => {
     try {
       const id = req.params.id;
-      const updateCta = await Cta.findOneAndUpdate({ _id: id }, req.body, {
+      const updateCta = await Cta.findByIdAndUpdate({ _id: id }, req.body, {
         new: true,
       });
       res.status(200).json({
@@ -47,7 +46,7 @@ module.exports = {
   delete_cta: async (req, res) => {
     try {
       const id = req.params.id;
-      const cta = await Cta.findOneAndDelete({ id }, { new: true });
+      const cta = await Cta.findByIdAndDelete({ _id: id }, { new: true });
       if (cta.deletedCount === 0) {
         return res.status(404).json();
       } else {

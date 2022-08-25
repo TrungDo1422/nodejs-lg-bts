@@ -13,8 +13,6 @@ module.exports = {
   },
   post_create: async (req, res) => {
     const newCategories = new Categories({
-      title: req.body.title,
-      categories: req.body.categories,
       iconUrl: req.body.iconUrl,
       content: req.body.content,
       course: req.body.course,
@@ -33,7 +31,7 @@ module.exports = {
   update_categories: async (req, res) => {
     try {
       const id = req.params.id;
-      const updateCategories = await Categories.findOneAndUpdate(
+      const updateCategories = await Categories.findByIdAndUpdate(
         { _id: id },
         req.body,
         {
@@ -52,8 +50,8 @@ module.exports = {
   delete_categories: async (req, res) => {
     try {
       const id = req.params.id;
-      const categories = await Categories.findOneAndDelete(
-        { id },
+      const categories = await Categories.findByIdAndDelete(
+        { _id: id },
         { new: true }
       );
       if (categories.deletedCount === 0) {
