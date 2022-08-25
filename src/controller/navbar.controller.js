@@ -15,8 +15,6 @@ module.exports = {
     const newNavbar = new Navbar({
       logoUrl: req.body.logoUrl,
       content: req.body.content,
-      img: req.body.img,
-      imgUrl: req.body.imgUrl,
       map: req.body.map,
     });
     try {
@@ -33,7 +31,7 @@ module.exports = {
   update_navbar: async (req, res) => {
     try {
       const id = req.params.id;
-      const updateNavbar = await Navbar.findOneAndUpdate(
+      const updateNavbar = await Navbar.findByIdAndUpdate(
         { _id: id },
         req.body,
         {
@@ -52,7 +50,7 @@ module.exports = {
   delete_navbar: async (req, res) => {
     try {
       const id = req.params.id;
-      const navbar = await Navbar.findOneAndDelete({ id }, { new: true });
+      const navbar = await Navbar.findByIdAndDelete({ _id: id }, { new: true });
       if (navbar.deletedCount === 0) {
         return res.status(404).json();
       } else {

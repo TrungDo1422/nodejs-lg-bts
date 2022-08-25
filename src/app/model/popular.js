@@ -3,22 +3,14 @@ const Schema = mongoose.Schema;
 
 const popularSchema = new Schema(
   {
-    title: {
+    imgUrl: {
+      type: String,
+      // require:true
+    },
+    content: {
       type: String,
       require: true,
     },
-    popular: [
-      {
-        imgUrl: {
-          type: String,
-          // require:true
-        },
-        content: {
-          type: String,
-          require: true,
-        },
-      },
-    ],
   },
   { timestamps: true }
 );

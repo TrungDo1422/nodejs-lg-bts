@@ -11,14 +11,10 @@ const ctaSchema = new Schema(
       type: String,
       require: true,
     },
-    cta: [
-      {
-        content: {
-          type: String,
-          require: true,
-        },
-      },
-    ],
+    content: {
+      type: String,
+      require: true,
+    },
   },
   { timestamps: true }
 );

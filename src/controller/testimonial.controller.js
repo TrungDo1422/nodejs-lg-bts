@@ -13,8 +13,6 @@ module.exports = {
   },
   post_create: async (req, res) => {
     const newTestimonial = new Testimonial({
-      title: req.body.title,
-      testimonial: req.body.testimonial,
       content: req.body.content,
       avataUrl: req.body.avataUrl,
       name: req.body.name,
@@ -34,7 +32,7 @@ module.exports = {
   update_testimonial: async (req, res) => {
     try {
       const id = req.params.id;
-      const updateTestimonial = await Testimonial.findOneAndUpdate(
+      const updateTestimonial = await Testimonial.findByIdAndUpdate(
         { _id: id },
         req.body,
         {
@@ -53,8 +51,8 @@ module.exports = {
   delete_testimonial: async (req, res) => {
     try {
       const id = req.params.id;
-      const testimonial = await Testimonial.findOneAndDelete(
-        { id },
+      const testimonial = await Testimonial.findByIdAndDelete(
+        { _id: id },
         { new: true }
       );
       if (testimonial.deletedCount === 0) {

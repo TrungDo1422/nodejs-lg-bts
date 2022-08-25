@@ -3,22 +3,14 @@ const Schema = mongoose.Schema;
 
 const noticeSchema = new Schema(
   {
-    title: {
+    stt: {
+      type: Number,
+      require: true,
+    },
+    description: {
       type: String,
       require: true,
     },
-    notice: [
-      {
-        stt: {
-          type: Number,
-          require: true,
-        },
-        description: {
-          type: String,
-          require: true,
-        },
-      },
-    ],
   },
   { timestamps: true }
 );

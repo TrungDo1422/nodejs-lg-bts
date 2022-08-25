@@ -1,25 +1,24 @@
-const Popular = require('../app/model/popular');
+const UploadImg = require('../app/model/uploadImg');
 
 module.exports = {
-  get_popular: async (req, res) => {
+  get_uploadImg: async (req, res) => {
     try {
-      const popular = await Popular.collection.find().toArray();
+      const uploadImg = await UploadImg.collection.find().toArray();
       res.status(200).json({
-        popular: popular,
+        uploadImg: uploadImg,
       });
     } catch (error) {
       return res.json({ error: error });
     }
   },
   post_create: async (req, res) => {
-    const newPopular = new Popular({
-      imgUrl: req.body.imgUrl,
-      content: req.body.content,
+    const newUploadImg = new UploadImg({
+      uploadImg: req.body.uploadImg,
     });
     try {
-      const savePopular = await newPopular.save();
+      const saveUploadImg = await newUploadImg.save();
       res.status(201).json({
-        popular: savePopular,
+        uploadImg: saveUploadImg,
       });
     } catch (error) {
       res.status(500).json({
@@ -27,10 +26,10 @@ module.exports = {
       });
     }
   },
-  update_popular: async (req, res) => {
+  update_uploadImg: async (req, res) => {
     try {
       const id = req.params.id;
-      const updatePopular = await Popular.findByIdAndUpdate(
+      const updateUploadImg = await UploadImg.findByIdAndUpdate(
         { _id: id },
         req.body,
         {
@@ -38,7 +37,7 @@ module.exports = {
         }
       );
       res.status(200).json({
-        updatePopular,
+        updateUploadImg,
       });
     } catch (error) {
       return res.status(500).json({
@@ -46,17 +45,17 @@ module.exports = {
       });
     }
   },
-  delete_popular: async (req, res) => {
+  delete_uploadImg: async (req, res) => {
     try {
       const id = req.params.id;
-      const popular = await Popular.findByIdAndDelete(
+      const uploadImg = await UploadImg.findByIdAndDelete(
         { _id: id },
         { new: true }
       );
-      if (popular.deletedCount === 0) {
+      if (uploadImg.deletedCount === 0) {
         return res.status(404).json();
       } else {
-        return res.status(200).json(popular);
+        return res.status(200).json(uploadImg);
       }
     } catch (error) {
       return res.status(500).json({ error: error });

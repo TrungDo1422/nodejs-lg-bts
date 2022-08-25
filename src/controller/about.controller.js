@@ -31,7 +31,7 @@ module.exports = {
   update_about: async (req, res) => {
     try {
       const id = req.params.id;
-      const updateAbout = await About.findOneAndUpdate({ _id: id }, req.body, {
+      const updateAbout = await About.findByIdAndUpdate({ _id: id }, req.body, {
         new: true,
       });
       res.status(200).json({
@@ -46,7 +46,7 @@ module.exports = {
   delete_about: async (req, res) => {
     try {
       const id = req.params.id;
-      const about = await About.findOneAndDelete({ id }, { new: true });
+      const about = await About.findByIdAndDelete({ _id: id }, { new: true });
       if (about.deletedCount === 0) {
         return res.status(404).json();
       } else {

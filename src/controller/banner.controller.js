@@ -32,7 +32,7 @@ module.exports = {
   update_banner: async (req, res) => {
     try {
       const id = req.params.id;
-      const updateBanner = await Banner.findOneAndUpdate(
+      const updateBanner = await Banner.findByIdAndUpdate(
         { _id: id },
         req.body,
         { new: true }
@@ -49,7 +49,7 @@ module.exports = {
   delete_banner: async (req, res) => {
     try {
       const id = req.params.id;
-      const banner = await Banner.findOneAndDelete({ id }, { new: true });
+      const banner = await Banner.findByIdAndDelete({ _id: id }, { new: true });
       if (banner.deletedCount === 0) {
         return res.status(404).json();
       } else {
